@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Ana Panel";
+    var kullaniciAdi = "Büşra"; // Şimdilik sabit
+}
+
+<!-- ÜST MENÜ (NAVBAR) -->
+<nav class="main-nav">
+    <div class="nav-left">
+        <span class="logo-text">EduVision</span>
+    </div>
+
+    <div class="nav-links">
+        <a asp-controller="Profile" asp-action="Index" class="nav-link">
+            Profil
+        </a>
+
+
+        <!-- ANASAYFA -->
+        <a asp-controller="Home" asp-action="Index" class="nav-link nav-link-active">
+            Anasayfa
+        </a>
+
+        <!-- SORU BANKASI -->
+        <a asp-controller="QuestionBank" asp-action="Index" class="nav-link">
+            Soru Bankası
+        </a>
+
+        <!-- SINAVLAR -->
+        <a asp-controller="Exam" asp-action="Index" class="nav-link">
+            Sınavlar
+        </a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+
+    <!-- Üst Karşılama -->
+    <div class="dashboard-header">
+        <div>
+            <h1>Hoş geldin, @kullaniciAdi! 👋</h1>
+            <p>Bugün hedeflerine bir adım daha yaklaşmak için harika bir gün.</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn-logout">Çıkış Yap</button>
+        </form>
+    </div>
+
+    <!-- Skor Kartları -->
+    <div class="dashboard-cards">
+        <div class="card card-main">
+            <h3>Toplam Çözdüğün Soru</h3>
+            <p class="card-number">320</p>
+            <span class="card-sub">Harika gidiyorsun! 🎯</span>
+        </div>
+
+        <div class="card card-main">
+            <h3>Son 7 Gün Çalışma Süresi</h3>
+            <p class="card-number">8 sa</p>
+            <span class="card-sub">İstikrarlı ilerleme 👌</span>
+        </div>
+    </div>
+
+    <!-- Orta Alan: Günün Sorusu + Grafik -->
+    <div class="dashboard-middle">
+
+        <!-- Günün Sorusu -->
+        <div class="card card-question">
+            <h3>Günün Sorusu</h3>
+            <p class="question-text">
+                Aşağıdaki ifadelerden hangisi SQL'de birincil anahtarı (PRIMARY KEY) en iyi tanımlar?
+            </p>
+            <button class="btn-primary">Soruyu Çöz</button>
+        </div>
+
+        <!-- Mini Grafik -->
+        <div class="card card-chart">
+            <h3>Çalışma İstatistikleri (Son 7 Gün)</h3>
+            <div class="chart-placeholder">
+                <div class="chart-bar" style="height: 40%;"></div>
+                <div class="chart-bar" style="height: 60%;"></div>
+                <div class="chart-bar" style="height: 80%;"></div>
+                <div class="chart-bar" style="height: 50%;"></div>
+                <div class="chart-bar" style="height: 30%;"></div>
+                <div class="chart-bar" style="height: 70%;"></div>
+                <div class="chart-bar" style="height: 90%;"></div>
+            </div>
+            <p class="chart-note">Her sütun bir günü temsil ediyor.</p>
+        </div>
+    </div>
+
+    <!-- Alt Alan: Son Sınavlar + Haftalık Hedefler -->
+    <div class="dashboard-bottom">
+
+        <!-- Son Girilen Sınavlar -->
+        <div class="card card-table">
+            <h3>Son Girilen Sınavlar</h3>
+            <table class="exam-table">
+                <thead>
+                    <tr>
+                        <th>Ders</th>
+                        <th>Tarih</th>
+                        <th>Puan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Veritabanı Programlama</td>
+                        <td>25.11.2025</td>
+                        <td>85</td>
+                    </tr>
+                    <tr>
+                        <td>Yapay Zeka</td>
+                        <td>22.11.2025</td>
+                        <td>90</td>
+                    </tr>
+                    <tr>
+                        <td>İşletim Sistemleri</td>
+                        <td>20.11.2025</td>
+                        <td>78</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Haftalık Hedefler -->
+        <div class="card card-goals">
+            <h3>Haftalık Hedefler</h3>
+
+            <div class="goal-item">
+                <div class="goal-top">
+                    <span>En az 100 soru çöz</span>
+                    <span class="goal-status goal-done">Tamamlandı</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-top">
+                    <span>Toplam 5 saat tekrar yap</span>
+                    <span class="goal-status goal-half">Devam ediyor</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 60%;"></div>
+                </div>
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-top">
+                    <span>En az 3 deneme sınavı çöz</span>
+                    <span class="goal-status goal-missing">Eksik</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 30%;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

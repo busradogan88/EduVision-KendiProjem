@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Soru Bankası";
+}
+
+<nav class="main-nav">
+    <div class="nav-left">
+        <span class="logo-text">EduVision</span>
+    </div>
+
+    <div class="nav-links">
+        <a asp-controller="Home" asp-action="Index" class="nav-link">Anasayfa</a>
+        <a href="#" class="nav-link">Profil</a>
+        <a asp-controller="QuestionBank" asp-action="Index" class="nav-link nav-link-active">Soru Bankası</a>
+        <a asp-controller="Exam" asp-action="Index" class="nav-link">Sınavlar</a>
+        <a href="#" class="nav-link">Ayarlar</a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+
+    <div class="qb-header">
+        <div>
+            <h1>Soru Bankaları</h1>
+            <p>Çalışmak istediğin soru bankasını seç, konulara göre soruları çöz.</p>
+        </div>
+    </div>
+
+    <!-- Soru bankaları grid -->
+    <div class="qb-grid">
+
+        <!-- Kart 1 -->
+        <div class="card qb-card">
+            <h3>TYT Matematik Soru Bankası</h3>
+            <p class="qb-sub">
+                Sayılar, denklemler, fonksiyonlar, polinomlar…
+            </p>
+            <div class="qb-meta-row">
+                <span>Tür: TYT</span>
+                <span>Toplam ~ 250 soru</span>
+            </div>
+            <div class="qb-tags">
+                <span class="qb-tag qb-tag-blue">Temel</span>
+                <span class="qb-tag qb-tag-orange">Popüler</span>
+            </div>
+            <a asp-controller="QuestionBank" asp-action="Details" asp-route-id="1" class="btn-primary qb-btn">
+                Soru Bankasını Aç
+            </a>
+        </div>
+
+        <!-- Kart 2 -->
+        <div class="card qb-card">
+            <h3>TYT Türkçe Paragraf Soru Bankası</h3>
+            <p class="qb-sub">
+                Okuma-anlama, paragraf, anlam bütünlüğü, yorumlama.
+            </p>
+            <div class="qb-meta-row">
+                <span>Tür: TYT</span>
+                <span>Toplam ~ 180 soru</span>
+            </div>
+            <div class="qb-tags">
+                <span class="qb-tag qb-tag-blue">Zaman Yönetimi</span>
+            </div>
+            <a asp-controller="QuestionBank" asp-action="Details" asp-route-id="2" class="btn-primary qb-btn">
+                Soru Bankasını Aç
+            </a>
+        </div>
+
+        <!-- Kart 3 -->
+        <div class="card qb-card">
+            <h3>AYT Fen Deneme Soru Bankası</h3>
+            <p class="qb-sub">
+                Fizik, kimya, biyoloji karma AYT düzeyinde denemeler.
+            </p>
+            <div class="qb-meta-row">
+                <span>Tür: AYT</span>
+                <span>Toplam ~ 200 soru</span>
+            </div>
+            <div class="qb-tags">
+                <span class="qb-tag qb-tag-orange">Zor</span>
+            </div>
+            <a asp-controller="QuestionBank" asp-action="Details" asp-route-id="3" class="btn-primary qb-btn">
+                Soru Bankasını Aç
+            </a>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,776 @@
+/* -------------------------------------------------------- */
+/* GENEL RENK PALETÝ */
+/* -------------------------------------------------------- */
+/* Mavi: #0A58CA
+   Turuncu: #E76F51
+   Açýk Mavi: #EEF4FF
+   Açýk Turuncu: #FFD7C2
+*/
+
+body {
+    background: linear-gradient(135deg, #eef4ff, #ffece2);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* -------------------------------------------------------- */
+/* NAVBAR */
+/* -------------------------------------------------------- */
+
+.main-nav {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 2px solid #E76F51; /* TURUNCU çizgi */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-left .logo-text {
+    font-weight: bold;
+    font-size: 20px;
+    color: #0A58CA; /* MAVÝ */
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+}
+
+.nav-link {
+    font-size: 14px;
+    text-decoration: none;
+    color: #333;
+    padding: 6px 10px;
+    border-radius: 999px;
+    transition: 0.2s ease;
+}
+
+    .nav-link:hover {
+        background: #eef4ff; /* açýk mavi */
+        color: #0A58CA;
+    }
+
+.nav-link-active {
+    background: #E76F51; /* TURUNCU */
+    color: white !important;
+}
+
+/* -------------------------------------------------------- */
+/* FORM TASARIMI */
+/* -------------------------------------------------------- */
+
+.form-container {
+    width: 400px;
+    margin: 70px auto;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+    .form-container h2 {
+        text-align: center;
+        color: #0A58CA;
+        margin-bottom: 20px;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* -------------------------------------------------------- */
+/* DASHBOARD */
+/* -------------------------------------------------------- */
+
+.dashboard-container {
+    max-width: 1100px;
+    margin: 25px auto 40px auto;
+    padding: 10px 15px 40px 15px;
+}
+
+.dashboard-header h1 {
+    color: #0A58CA; /* ANA RENK */
+}
+
+.dashboard-header p {
+    color: #555;
+}
+
+.dashboard-cards,
+.dashboard-middle,
+.dashboard-bottom {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+    .card h3 {
+        margin-bottom: 12px;
+        color: #0A58CA; /* MAVÝ baþlýklar */
+    }
+
+/* --------------------------------------------- */
+/* >>> TURUNCU YAPILAN BÜYÜK SAYILAR <<< */
+/* --------------------------------------------- */
+.card-main .card-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #E76F51 !important; /* TURUNCU OLDU */
+}
+
+/* -------------------------------------------------------- */
+/* GÜNÜN SORUSU */
+/* -------------------------------------------------------- */
+
+.card-question .question-text {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* -------------------------------------------------------- */
+/* >>> SORUYU ÇÖZ BUTONU – TURUNCU GRADYAN <<< */
+/* -------------------------------------------------------- */
+
+.card-question .btn-primary {
+    background: linear-gradient(90deg, #E76F51, #F79E7D);
+    color: white;
+    border: none;
+}
+
+    .card-question .btn-primary:hover {
+        background: linear-gradient(90deg, #d45a43, #eb8968);
+    }
+
+/* -------------------------------------------------------- */
+/* GRAFÝK */
+/* -------------------------------------------------------- */
+
+.card-chart .chart-placeholder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 6px;
+    height: 150px;
+    background: #EEF4FF; /* açýk mavi */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chart-bar {
+    flex: 1;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #E76F51, #FFB091);
+}
+
+.chart-note {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #666;
+}
+
+/* -------------------------------------------------------- */
+/* TABLO */
+/* -------------------------------------------------------- */
+
+/* >>> “Ders - Tarih - Puan” TURUNCU YAPILDI <<< */
+.exam-table th {
+    background: #FFE1D2;
+    color: #E76F51 !important; /* TURUNCU */
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* -------------------------------------------------------- */
+/* HEDEFLER */
+/* -------------------------------------------------------- */
+
+.goal-done {
+    background: #cfe6ff;
+    color: #0A58CA;
+}
+
+.goal-half {
+    background: #FFD7C2;
+    color: #7a3f21;
+}
+
+.goal-missing {
+    background: #ffd5d1;
+    color: #9b2a2a;
+}
+
+.progress-bar {
+    background: #0A58CA; /* MAVÝ */
+}
+
+/* -------------------------------------------------------- */
+/* BUTONLAR */
+/* -------------------------------------------------------- */
+
+.btn-primary {
+    display: inline-block;
+    width: 100%;
+    background-color: #E76F51; /* TURUNCU */
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #cf5f45;
+    }
+
+.btn-logout {
+    background: #0A58CA; /* MAVÝ */
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+    .btn-logout:hover {
+        background: #084298;
+    }
+
+/* -------------------------------------------------------- */
+/* MOBÝL */
+/* -------------------------------------------------------- */
+
+@media (max-width: 900px) {
+    .dashboard-cards,
+    .dashboard-middle,
+    .dashboard-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+/* -------------------------------------------------------- */
+/* SINAV YÖNETÝMÝ SAYFASI */
+/* -------------------------------------------------------- */
+
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+    .exam-header h1 {
+        margin: 0;
+        color: #0A58CA;
+    }
+
+    .exam-header p {
+        margin: 4px 0 0 0;
+        color: #555;
+        font-size: 14px;
+    }
+
+.exam-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+    .exam-filter span {
+        color: #555;
+    }
+
+.exam-filter-btn {
+    border-radius: 999px;
+    border: 1px solid #E76F51;
+    background: #ffffff;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #E76F51;
+    transition: 0.2s;
+}
+
+    .exam-filter-btn:hover {
+        background: #FFE1D2;
+    }
+
+.exam-filter-btn-active {
+    background: #E76F51;
+    color: #ffffff;
+}
+
+/* Ana layout: sýnav kartý + mini kart */
+.exam-main {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.exam-info-card .exam-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.exam-label {
+    color: #555;
+    font-weight: 600;
+}
+
+.exam-value {
+    color: #333;
+}
+
+.exam-timer {
+    font-weight: bold;
+    color: #E76F51;
+}
+
+/* Badge stilleri */
+.badge-orange {
+    display: inline-block;
+    background: #FFE1D2;
+    color: #E76F51;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.badge-blue {
+    display: inline-block;
+    background: #EEF4FF;
+    color: #0A58CA;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+/* Sýnav butonlarý */
+.exam-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Zaten var olan .btn-primary ile uyumlu yan butonlar */
+.btn-secondary {
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #0A58CA;
+    background: #ffffff;
+    color: #0A58CA;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+    .btn-secondary:hover {
+        background: #EEF4FF;
+    }
+
+.btn-ghost {
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px dashed #999;
+    background: #ffffff;
+    color: #555;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+    .btn-ghost:hover {
+        background: #f5f5f5;
+    }
+
+/* Mini bilgi kartý sað taraf */
+.exam-side-card .exam-mini-text {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.exam-mini-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+}
+
+    .exam-mini-list li {
+        margin-bottom: 6px;
+    }
+
+/* Sýnav geçmiþi tablosu */
+.exam-history-card {
+    margin-top: 10px;
+}
+
+.exam-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+    .exam-history-table th,
+    .exam-history-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .exam-history-table th {
+        background: #EEF4FF;
+        color: #0A58CA;
+        text-align: left;
+    }
+
+/* Sonuç durum badge'leri */
+.badge-green {
+    background: #d1f3dd;
+    color: #1e7b3b;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.badge-yellow {
+    background: #fff3cd;
+    color: #896500;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+/* Mobil uyum */
+@media (max-width: 900px) {
+    .exam-main {
+        grid-template-columns: 1fr;
+    }
+
+    .exam-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+/* -------------------------------------------------------- */
+/* SORU BANKASI EKRANI */
+/* -------------------------------------------------------- */
+
+.qb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+    .qb-header h1 {
+        margin: 0;
+        color: #0A58CA;
+    }
+
+    .qb-header p {
+        margin: 4px 0 0 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+.qb-info-pill {
+    background: #FFE1D2;
+    color: #E76F51;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+}
+
+/* Soru bankasý kart grid'i */
+.qb-grid {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 20px;
+}
+
+.qb-card h3 {
+    margin-bottom: 8px;
+}
+
+.qb-sub {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.qb-meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.qb-tags {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.qb-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.qb-tag-blue {
+    background: #EEF4FF;
+    color: #0A58CA;
+}
+
+.qb-tag-orange {
+    background: #FFE1D2;
+    color: #E76F51;
+}
+
+.qb-btn {
+    margin-top: 5px;
+}
+
+/* Detay sayfasý yerleþimi */
+.qb-details-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 2fr;
+    gap: 20px;
+}
+
+/* Konu listesi */
+.qb-topic-card {
+    max-height: 430px;
+}
+
+.qb-topic-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 0 0;
+}
+
+.qb-topic-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #444;
+    transition: 0.2s;
+}
+
+    .qb-topic-item:hover {
+        background: #EEF4FF;
+    }
+
+.qb-topic-active {
+    background: #E76F51;
+    color: #ffffff;
+}
+
+/* Soru alaný */
+.qb-question-area {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.qb-question-info {
+    margin-bottom: 4px;
+}
+
+.qb-question-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.qb-question-tag {
+    background: #EEF4FF;
+    color: #0A58CA;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.qb-question-difficulty {
+    color: #777;
+}
+
+.qb-question-text {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.qb-options {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+    .qb-options li {
+        margin-bottom: 4px;
+    }
+
+.qb-answer {
+    font-size: 13px;
+    color: #333;
+}
+
+/* Mobil uyum */
+@media (max-width: 900px) {
+    .qb-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qb-details-layout {
+        grid-template-columns: 1fr;
+    }
+}
+/* -------------------------------------------------------- */
+/* PROFÝL SAYFASI */
+/* -------------------------------------------------------- */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E76F51, #FFB091);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 22px;
+    color: #0A58CA;
+}
+
+.profile-info p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.profile-sub {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #666;
+}
+
+.profile-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr;
+    gap: 20px;
+}
+
+.profile-stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #444;
+}
+
+    .profile-stat-row strong {
+        color: #E76F51;
+    }
+
+.profile-goal-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+    .profile-goal-list li {
+        margin-bottom: 6px;
+    }
+
+.profile-note {
+    font-size: 13px;
+    color: #555;
+    background: #EEF4FF;
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+
+/* Mobil uyum */
+@media (max-width: 900px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-actions {
+        margin-left: 0;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}

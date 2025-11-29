@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Sınav Yönetimi";
+}
+
+<nav class="main-nav">
+    <div class="nav-left">
+        <span class="logo-text">EduVision</span>
+    </div>
+
+    <div class="nav-links">
+        <a asp-controller="Home" asp-action="Index" class="nav-link">Anasayfa</a>
+        <a href="#" class="nav-link">Profil</a>
+        <a asp-controller="QuestionBank" asp-action="Index" class="nav-link">
+            Soru Bankası
+        </a>
+
+        <a asp-controller="Exam" asp-action="Index" class="nav-link nav-link-active">Sınavlar</a>
+        <a href="#" class="nav-link">Ayarlar</a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+
+    <!-- Üst Başlık + TYT / AYT Filtre -->
+    <div class="exam-header">
+        <div>
+            <h1>Sınav Yönetimi</h1>
+            <p>Sınavlarını yönet, kaldığın yerden devam et veya yeni deneme başlat.</p>
+        </div>
+
+        <div class="exam-filter">
+            <span>Seviye:</span>
+            <button class="exam-filter-btn exam-filter-btn-active">TYT</button>
+            <button class="exam-filter-btn">AYT</button>
+        </div>
+    </div>
+
+    <!-- Sınav Bilgi Kartı + İşlem Alanı -->
+    <div class="exam-main">
+
+        <!-- Sol: Sınav kartı -->
+        <div class="card exam-info-card">
+            <h3>Matematik Konu Tarama - TYT</h3>
+
+            <div class="exam-info-row">
+                <span class="exam-label">Sınav Adı:</span>
+                <span class="exam-value">TYT Matematik Konu Tarama 1</span>
+            </div>
+
+            <div class="exam-info-row">
+                <span class="exam-label">Sınav Türü:</span>
+                <span class="exam-value badge-orange">Konu Tarama</span>
+            </div>
+
+            <div class="exam-info-row">
+                <span class="exam-label">Soru Sayısı:</span>
+                <span class="exam-value">25 Soru</span>
+            </div>
+
+            <div class="exam-info-row">
+                <span class="exam-label">Zorluk:</span>
+                <span class="exam-value badge-blue">Orta</span>
+            </div>
+
+            <div class="exam-info-row">
+                <span class="exam-label">Sınav Süresi:</span>
+                <span class="exam-value">
+                    <span class="exam-timer">25:00</span> (Dakika)
+                </span>
+            </div>
+
+            <div class="exam-buttons">
+                <button class="btn-primary exam-btn">Başla</button>
+                <button class="btn-secondary exam-btn">Devam Et</button>
+                <button class="btn-ghost exam-btn">Tekrar Çöz</button>
+            </div>
+        </div>
+
+        <!-- Sağ: Mini bilgi kartı -->
+        <div class="card exam-side-card">
+            <h3>Sınav Özeti</h3>
+            <p class="exam-mini-text">
+                Bu sınav, temel TYT matematik konularını (sayılar, denklemler, fonksiyonlar) taramak için hazırlanmıştır.
+            </p>
+
+            <ul class="exam-mini-list">
+                <li>📌 Önerilen süre: 25 dakika</li>
+                <li>📌 Hedeflenen doğru sayısı: 18+</li>
+                <li>📌 Çözüldüğünde: ayrıntılı analiz ekranı</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Alt: Sınav Sonuç Geçmişi -->
+    <div class="card exam-history-card">
+        <h3>Sınav Sonuç Geçmişi</h3>
+
+        <table class="exam-history-table">
+            <thead>
+                <tr>
+                    <th>Sınav Adı</th>
+                    <th>Tarih</th>
+                    <th>Tür</th>
+                    <th>Net</th>
+                    <th>Süre</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TYT Matematik Konu Tarama 1</td>
+                    <td>25.11.2025</td>
+                    <td>Konu Tarama</td>
+                    <td>19.25 Net</td>
+                    <td>23 dk</td>
+                    <td><span class="badge-green">Tamamlandı</span></td>
+                </tr>
+                <tr>
+                    <td>TYT Türkçe Mini Quiz 1</td>
+                    <td>23.11.2025</td>
+                    <td>Mini Quiz</td>
+                    <td>15.00 Net</td>
+                    <td>12 dk</td>
+                    <td><span class="badge-green">Tamamlandı</span></td>
+                </tr>
+                <tr>
+                    <td>AYT Geometri Deneme 1</td>
+                    <td>20.11.2025</td>
+                    <td>Deneme</td>
+                    <td>12.50 Net</td>
+                    <td>40 dk</td>
+                    <td><span class="badge-yellow">Devam Ediyor</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Soru Bankası Detayı";
+}
+
+<nav class="main-nav">
+    <div class="nav-left">
+        <span class="logo-text">EduVision</span>
+    </div>
+
+    <div class="nav-links">
+        <a asp-controller="Home" asp-action="Index" class="nav-link">Anasayfa</a>
+        <a href="#" class="nav-link">Profil</a>
+        <a asp-controller="QuestionBank" asp-action="Index" class="nav-link nav-link-active">Soru Bankası</a>
+        <a asp-controller="Exam" asp-action="Index" class="nav-link">Sınavlar</a>
+        <a href="#" class="nav-link">Ayarlar</a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+
+    <!-- Üst bilgi -->
+    <div class="qb-header">
+        <div>
+            <h1>TYT Matematik Soru Bankası</h1>
+            <p>Konuları seçerek soruları görüntüleyebilir ve çözebilirsin.</p>
+        </div>
+
+        <div class="qb-info-pill">
+            TYT • Orta Seviye • 250+ Soru
+        </div>
+    </div>
+
+    <div class="qb-details-layout">
+
+        <!-- Sol: Konu listesi -->
+        <div class="card qb-topic-card">
+            <h3>Konular</h3>
+            <ul class="qb-topic-list">
+                <li class="qb-topic-item qb-topic-active">Sayılar ve Sayı Kümeleri</li>
+                <li class="qb-topic-item">Temel Kavramlar</li>
+                <li class="qb-topic-item">Denklemler ve Eşitsizlikler</li>
+                <li class="qb-topic-item">Fonksiyonlar</li>
+                <li class="qb-topic-item">Problemler</li>
+            </ul>
+        </div>
+
+        <!-- Sağ: Sorular + cevaplar -->
+        <div class="qb-question-area">
+            <!-- Mini açıklama -->
+            <div class="card qb-question-info">
+                <h3>Sayılar ve Sayı Kümeleri</h3>
+                <p class="qb-sub">
+                    Bu bölümde temel sayı kümeleri, aralık gösterimi ve sayı doğrusuyla ilgili sorular yer alır.
+                </p>
+            </div>
+
+            <!-- Örnek soru 1 -->
+            <div class="card qb-question-card">
+                <div class="qb-question-header">
+                    <span class="qb-question-tag">Soru 1</span>
+                    <span class="qb-question-difficulty">Zorluk: Kolay</span>
+                </div>
+                <p class="qb-question-text">
+                    Aşağıdakilerden hangisi tam sayı kümesine ait bir elemandır?
+                </p>
+                <ul class="qb-options">
+                    <li>A) 3,5</li>
+                    <li>B) -4</li>
+                    <li>C) √2</li>
+                    <li>D) π</li>
+                </ul>
+                <div class="qb-answer">
+                    <strong>Cevap:</strong> B) -4
+                </div>
+            </div>
+
+            <!-- Örnek soru 2 -->
+            <div class="card qb-question-card">
+                <div class="qb-question-header">
+                    <span class="qb-question-tag">Soru 2</span>
+                    <span class="qb-question-difficulty">Zorluk: Orta</span>
+                </div>
+                <p class="qb-question-text">
+                    Aşağıdaki aralık gösterimlerinden hangisi 2 ile 5 arasındaki tüm reel sayıları gösterir?
+                </p>
+                <ul class="qb-options">
+                    <li>A) [2,5]</li>
+                    <li>B) (2,5)</li>
+                    <li>C) [2,5)</li>
+                    <li>D) (2,5]</li>
+                </ul>
+                <div class="qb-answer">
+                    <strong>Cevap:</strong> B) (2,5)
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

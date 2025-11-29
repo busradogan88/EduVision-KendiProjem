@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Profilim";
+    var kullaniciAdi = "Büşra";
+    var email = "busra@example.com"; // Şimdilik sabit
+}
+
+<!-- NAVBAR -->
+<nav class="main-nav">
+    <div class="nav-left">
+        <span class="logo-text">EduVision</span>
+    </div>
+
+    <div class="nav-links">
+        <!-- Profil bu sayfa olduğu için aktif -->
+        <a asp-controller="Profile" asp-action="Index" class="nav-link nav-link-active">
+            Profil
+        </a>
+
+        <a asp-controller="Home" asp-action="Index" class="nav-link">
+            Anasayfa
+        </a>
+
+        <a asp-controller="QuestionBank" asp-action="Index" class="nav-link">
+            Soru Bankası
+        </a>
+
+        <a asp-controller="Exam" asp-action="Index" class="nav-link">
+            Sınavlar
+        </a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+
+    <!-- Üst Profil Başlığı -->
+    <div class="profile-header card">
+        <div class="profile-avatar">
+            <span>@kullaniciAdi.Substring(0, 1)</span>
+        </div>
+        <div class="profile-info">
+            <h1>@kullaniciAdi</h1>
+            <p>@email</p>
+            <p class="profile-sub">
+                Hedef: Düzenli çalışarak TYT & AYT başarı puanını artırmak.
+            </p>
+        </div>
+        <div class="profile-actions">
+            <button class="btn-secondary">Profili Düzenle</button>
+            <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+                <button type="submit" class="btn-logout">Çıkış Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Alt kısım: 2 sütunluk layout -->
+    <div class="profile-grid">
+        <!-- Sol sütun: Çalışma istatistikleri -->
+        <div class="card">
+            <h3>Çalışma İstatistiklerin</h3>
+            <div class="profile-stat-row">
+                <span>Toplam çözdüğün soru:</span>
+                <strong>320</strong>
+            </div>
+            <div class="profile-stat-row">
+                <span>Son 7 gün çalışma süresi:</span>
+                <strong>8 saat</strong>
+            </div>
+            <div class="profile-stat-row">
+                <span>Toplam girilen sınav sayısı:</span>
+                <strong>12</strong>
+            </div>
+            <div class="profile-stat-row">
+                <span>Ortalama net:</span>
+                <strong>68,5</strong>
+            </div>
+        </div>
+
+        <!-- Sağ sütun: Hedefler ve notlar -->
+        <div class="card">
+            <h3>Kişisel Hedefler</h3>
+            <ul class="profile-goal-list">
+                <li>📌 Her gün en az 30 soru çözmek</li>
+                <li>📌 Haftada en az 1 deneme sınavı bitirmek</li>
+                <li>📌 Yanlış yaptığım soruları tekrar etmek</li>
+                <li>📌 TYT Matematik netlerini 20+ seviyesine çıkarmak</li>
+            </ul>
+
+            <h3 style="margin-top:18px;">Notlarım</h3>
+            <p class="profile-note">
+                Not: Özellikle zaman yönetimine dikkat et. Deneme çözerken süreyi gerçek sınav gibi kullan ✨
+            </p>
+        </div>
+    </div>
+
+</div>
