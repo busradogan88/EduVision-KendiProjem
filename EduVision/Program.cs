@@ -1,11 +1,22 @@
 ﻿using EduVision.Data; // AccountRepository için
+using EduVision.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // MVC
 builder.Services.AddControllersWithViews();
 
+
+// ✅ VERİTABANI BAĞLANTISI (Context = EduDbContext)
+builder.Services.AddDbContext<EduDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    )
+);
+
+// ... diğer kodlar (AddControllersWithViews vs.) devam eder ...
 // ✅ ADO.NET Repository (DI)
 builder.Services.AddScoped<AccountRepository>();
 

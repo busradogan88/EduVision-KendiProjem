@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<EduVision.Controllers.QuestionBankViewModel>
+
+@{
     ViewData["Title"] = "Soru Bankası";
 }
 
@@ -6,7 +8,6 @@
     <div class="nav-left">
         <span class="logo-text">EduVision</span>
     </div>
-
     <div class="nav-links">
         <a asp-controller="Home" asp-action="Index" class="nav-link">Anasayfa</a>
         <a href="#" class="nav-link">Profil</a>
@@ -17,72 +18,122 @@
 </nav>
 
 <div class="dashboard-container">
-
     <div class="qb-header">
         <div>
             <h1>Soru Bankaları</h1>
-            <p>Çalışmak istediğin soru bankasını seç, konulara göre soruları çöz.</p>
+            <p>Çalışmak istediğin alanı seç ve hemen çözmeye başla.</p>
         </div>
     </div>
 
-    <!-- Soru bankaları grid -->
+    <div class="filter-container mb-4" style="text-align: center; margin-bottom: 30px;">
+        <button class="btn btn-outline-primary active-filter" onclick="filterSelection('all', this)">Tümü</button>
+        <button class="btn btn-outline-primary" onclick="filterSelection('TYT', this)">TYT</button>
+        <button class="btn btn-outline-primary" onclick="filterSelection('AYT', this)">AYT</button>
+    </div>
+
     <div class="qb-grid">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                // Kartın içine data-category özelliği ekledik. Filtreleme buna göre çalışacak.
+                <div class="card qb-card filter-item" data-category="@item.ExamName">
 
-        <!-- Kart 1 -->
-        <div class="card qb-card">
-            <h3>TYT Matematik Soru Bankası</h3>
-            <p class="qb-sub">
-                Sayılar, denklemler, fonksiyonlar, polinomlar…
-            </p>
-            <div class="qb-meta-row">
-                <span>Tür: TYT</span>
-                <span>Toplam ~ 250 soru</span>
-            </div>
-            <div class="qb-tags">
-                <span class="qb-tag qb-tag-blue">Temel</span>
-                <span class="qb-tag qb-tag-orange">Popüler</span>
-            </div>
-            <a asp-controller="QuestionBank" asp-action="Details" asp-route-id="1" class="btn-primary qb-btn">
-                Soru Bankasını Aç
-            </a>
-        </div>
+                    <h3 style="display:flex; justify-content:space-between;">
+                        <span>@item.LessonName</span>
+                        <span class="badge bg-secondary" style="font-size: 0.6em;">@item.ExamName</span>
+                    </h3>
 
-        <!-- Kart 2 -->
-        <div class="card qb-card">
-            <h3>TYT Türkçe Paragraf Soru Bankası</h3>
-            <p class="qb-sub">
-                Okuma-anlama, paragraf, anlam bütünlüğü, yorumlama.
-            </p>
-            <div class="qb-meta-row">
-                <span>Tür: TYT</span>
-                <span>Toplam ~ 180 soru</span>
-            </div>
-            <div class="qb-tags">
-                <span class="qb-tag qb-tag-blue">Zaman Yönetimi</span>
-            </div>
-            <a asp-controller="QuestionBank" asp-action="Details" asp-route-id="2" class="btn-primary qb-btn">
-                Soru Bankasını Aç
-            </a>
-        </div>
+                    <p class="qb-sub">
+                        @item.ExamName müfredatına uygun @item.LessonName konuları.
+                    </p>
 
-        <!-- Kart 3 -->
-        <div class="card qb-card">
-            <h3>AYT Fen Deneme Soru Bankası</h3>
-            <p class="qb-sub">
-                Fizik, kimya, biyoloji karma AYT düzeyinde denemeler.
-            </p>
-            <div class="qb-meta-row">
-                <span>Tür: AYT</span>
-                <span>Toplam ~ 200 soru</span>
-            </div>
-            <div class="qb-tags">
-                <span class="qb-tag qb-tag-orange">Zor</span>
-            </div>
-            <a asp-controller="QuestionBank" asp-action="Details" asp-route-id="3" class="btn-primary qb-btn">
-                Soru Bankasını Aç
-            </a>
-        </div>
+                    <div class="qb-meta-row">
+                        <span>Tür: <b>@item.ExamName</b></span>
+                        <span>~ @item.QuestionCount Soru</span>
+                    </div>
 
+                    <div class="qb-tags">
+                        <span class="qb-tag @(item.ExamName == "TYT" ? "qb-tag-blue" : "qb-tag-orange")">
+                            @item.ExamName
+                        </span>
+                        <span class="qb-tag">Güncel</span>
+                    </div>
+
+                    <a asp-controller="QuestionBank"
+                       asp-action="Details"
+                       asp-route-examTypeId="@item.ExamTypeId"
+                       asp-route-lessonId="@item.LessonId"
+                       class="btn-primary qb-btn">
+                        Soru Bankasını Aç
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Henüz sisteme yüklenmiş soru bulunmamaktadır.
+            </div>
+        }
     </div>
-
 </div>
+
+<script>
+    function filterSelection(category, btn) {
+        var items = document.getElementsByClassName("filter-item");
+
+        // 1. Kartları Gizle/Göster
+        for (var i = 0; i < items.length; i++) {
+            var itemCategory = items[i].getAttribute("data-category");
+
+            if (category === "all") {
+                items[i].style.display = "block"; // Hepsini göster
+            } else {
+                if (itemCategory === category) {
+                    items[i].style.display = "block"; // Eşleşeni göster
+                } else {
+                    items[i].style.display = "none";  // Eşleşmeyeni gizle
+                }
+            }
+        }
+
+        // 2. Butonların Aktiflik Rengini Ayarla
+        var buttons = document.getElementsByClassName("btn-outline-primary");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove("active", "btn-primary"); // Eskisinden rengi al
+            buttons[i].classList.add("btn-outline-primary");     // Çizgili hale getir
+        }
+
+        // Tıklanan butonu boya
+        btn.classList.remove("btn-outline-primary");
+        btn.classList.add("btn-primary", "active");
+    }
+
+    // Sayfa ilk açıldığında 'Tümü' butonu aktif gibi görünsün diye manuel stil eklemesi
+    // (CSS classları ile daha temiz yapılabilir ama hızlı çözüm için script içinde hallettik)
+    document.addEventListener("DOMContentLoaded", function () {
+        var allBtn = document.querySelector("button[onclick=\"filterSelection('all', this)\"]");
+        if (allBtn) {
+            allBtn.classList.remove("btn-outline-primary");
+            allBtn.classList.add("btn-primary");
+        }
+    });
+</script>
+
+<style>
+    .filter-container button {
+        margin: 0 5px;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    /* Grid yapısı elemanlar gizlenince bozulmasın diye */
+    .qb-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+</style>

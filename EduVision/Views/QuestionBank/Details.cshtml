@@ -1,100 +1,92 @@
-﻿@{
-    ViewData["Title"] = "Soru Bankası Detayı";
+﻿@model List<EduVision.Models.Question>
+
+@{
+    // Başlık Controller'dan geliyor (Örn: TYT - Matematik Soruları)
 }
 
-<nav class="main-nav">
-    <div class="nav-left">
-        <span class="logo-text">EduVision</span>
-    </div>
+<div class="dashboard-container" style="padding: 20px;">
 
-    <div class="nav-links">
-        <a asp-controller="Home" asp-action="Index" class="nav-link">Anasayfa</a>
-        <a href="#" class="nav-link">Profil</a>
-        <a asp-controller="QuestionBank" asp-action="Index" class="nav-link nav-link-active">Soru Bankası</a>
-        <a asp-controller="Exam" asp-action="Index" class="nav-link">Sınavlar</a>
-        <a href="#" class="nav-link">Ayarlar</a>
-    </div>
-</nav>
-
-<div class="dashboard-container">
-
-    <!-- Üst bilgi -->
-    <div class="qb-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1>TYT Matematik Soru Bankası</h1>
-            <p>Konuları seçerek soruları görüntüleyebilir ve çözebilirsin.</p>
+            <h1 style="color: #2c3e50;">@ViewData["Title"]</h1>
+            <p class="text-muted">Toplam @Model.Count soru listeleniyor.</p>
         </div>
-
-        <div class="qb-info-pill">
-            TYT • Orta Seviye • 250+ Soru
-        </div>
+        <a asp-action="Index" class="btn btn-secondary">
+            &larr; Soru Bankalarına Dön
+        </a>
     </div>
 
-    <div class="qb-details-layout">
-
-        <!-- Sol: Konu listesi -->
-        <div class="card qb-topic-card">
-            <h3>Konular</h3>
-            <ul class="qb-topic-list">
-                <li class="qb-topic-item qb-topic-active">Sayılar ve Sayı Kümeleri</li>
-                <li class="qb-topic-item">Temel Kavramlar</li>
-                <li class="qb-topic-item">Denklemler ve Eşitsizlikler</li>
-                <li class="qb-topic-item">Fonksiyonlar</li>
-                <li class="qb-topic-item">Problemler</li>
-            </ul>
-        </div>
-
-        <!-- Sağ: Sorular + cevaplar -->
-        <div class="qb-question-area">
-            <!-- Mini açıklama -->
-            <div class="card qb-question-info">
-                <h3>Sayılar ve Sayı Kümeleri</h3>
-                <p class="qb-sub">
-                    Bu bölümde temel sayı kümeleri, aralık gösterimi ve sayı doğrusuyla ilgili sorular yer alır.
-                </p>
+    <div class="questions-list">
+        @if (Model.Count == 0)
+        {
+            <div class="alert alert-warning">
+                Bu kategoride henüz soru bulunmamaktadır.
             </div>
+        }
+        else
+        {
+            int sayac = 1;
+            @foreach (var soru in Model)
+            {
+                <div class="card mb-4 shadow-sm" style="border-radius: 10px; border: none;">
+                    <div class="card-header bg-white">
+                        <span class="badge bg-primary">Soru @sayac</span>
+                        <span class="badge bg-light text-dark">Zorluk: @soru.DifficultyLevel</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title p-2">@soru.QuestionText</h5>
 
-            <!-- Örnek soru 1 -->
-            <div class="card qb-question-card">
-                <div class="qb-question-header">
-                    <span class="qb-question-tag">Soru 1</span>
-                    <span class="qb-question-difficulty">Zorluk: Kolay</span>
-                </div>
-                <p class="qb-question-text">
-                    Aşağıdakilerden hangisi tam sayı kümesine ait bir elemandır?
-                </p>
-                <ul class="qb-options">
-                    <li>A) 3,5</li>
-                    <li>B) -4</li>
-                    <li>C) √2</li>
-                    <li>D) π</li>
-                </ul>
-                <div class="qb-answer">
-                    <strong>Cevap:</strong> B) -4
-                </div>
-            </div>
+                        <div class="list-group list-group-flush mt-3" id="options-@soru.QuestionId">
+                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'A', '@soru.CorrectAnswer')">
+                                <b>A)</b> @soru.OptionA
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'B', '@soru.CorrectAnswer')">
+                                <b>B)</b> @soru.OptionB
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'C', '@soru.CorrectAnswer')">
+                                <b>C)</b> @soru.OptionC
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'D', '@soru.CorrectAnswer')">
+                                <b>D)</b> @soru.OptionD
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'E', '@soru.CorrectAnswer')">
+                                <b>E)</b> @soru.OptionE
+                            </button>
+                        </div>
 
-            <!-- Örnek soru 2 -->
-            <div class="card qb-question-card">
-                <div class="qb-question-header">
-                    <span class="qb-question-tag">Soru 2</span>
-                    <span class="qb-question-difficulty">Zorluk: Orta</span>
+                        <div class="mt-3 text-end">
+                            <button class="btn btn-sm btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#answer-@soru.QuestionId">
+                                Cevabı Göster
+                            </button>
+                        </div>
+
+                        <div class="collapse mt-2" id="answer-@soru.QuestionId">
+                            <div class="card card-body bg-light text-success fw-bold">
+                                Doğru Cevap: @soru.CorrectAnswer
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p class="qb-question-text">
-                    Aşağıdaki aralık gösterimlerinden hangisi 2 ile 5 arasındaki tüm reel sayıları gösterir?
-                </p>
-                <ul class="qb-options">
-                    <li>A) [2,5]</li>
-                    <li>B) (2,5)</li>
-                    <li>C) [2,5)</li>
-                    <li>D) (2,5]</li>
-                </ul>
-                <div class="qb-answer">
-                    <strong>Cevap:</strong> B) (2,5)
-                </div>
-            </div>
-        </div>
+                sayac++;
+            }
+        }
     </div>
-
 </div>
 
+<script>
+    function checkAnswer(btn, questionId, selectedOption, correctOption) {
+        // O sorudaki tüm butonların rengini sıfırla
+        var parentDiv = document.getElementById('options-' + questionId);
+        var buttons = parentDiv.getElementsByClassName('option-btn');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('bg-success', 'bg-danger', 'text-white');
+        }
+
+        // Doğru mu Yanlış mı kontrol et
+        if (selectedOption === correctOption) {
+            btn.classList.add('bg-success', 'text-white'); // Doğruysa Yeşil
+        } else {
+            btn.classList.add('bg-danger', 'text-white'); // Yanlışsa Kırmızı
+        }
+    }
+</script>
