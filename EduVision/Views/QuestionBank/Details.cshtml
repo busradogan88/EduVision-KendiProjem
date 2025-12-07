@@ -1,92 +1,190 @@
-﻿@model List<EduVision.Models.Question>
-
-@{
-    // Başlık Controller'dan geliyor (Örn: TYT - Matematik Soruları)
-}
+﻿@model EduVision.Models.ViewModels.QuestionBankDetailsViewModel
 
 <div class="dashboard-container" style="padding: 20px;">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 style="color: #2c3e50;">@ViewData["Title"]</h1>
-            <p class="text-muted">Toplam @Model.Count soru listeleniyor.</p>
-        </div>
-        <a asp-action="Index" class="btn btn-secondary">
-            &larr; Soru Bankalarına Dön
-        </a>
-    </div>
+    @if (Model.ShowCover)
+    {
+        <!-- 📘 KAPAK SAYFASI -->
+        <div class="card shadow-sm" style="border-radius: 12px; border: none;">
+            <div class="card-body p-4">
+                <h1 style="color: #2c3e50; margin-bottom: 10px;">
+                    @Model.BankName
+                </h1>
 
-    <div class="questions-list">
-        @if (Model.Count == 0)
-        {
-            <div class="alert alert-warning">
-                Bu kategoride henüz soru bulunmamaktadır.
+                <p class="text-muted mb-3">
+                    @Model.ExamName - @Model.LessonName Soru Bankası
+                </p>
+
+                <p class="mb-2">
+                    Bu soru bankasında <strong>@Model.TotalQuestions</strong> adet soru bulunmaktadır.
+                </p>
+                <p class="mb-4">
+                    Sorular zorluk seviyelerine göre karışık olarak listelenmektedir.
+                    Her sayfada <strong>6 soru</strong> göreceksin. Aşağıdaki butona tıklayarak
+                    ilk sayfadan başlayabilirsin.
+                </p>
+
+                <!-- 🔹 KONULAR BURADA GÖRÜNÜR -->
+                @if (Model.Topics != null && Model.Topics.Any())
+                {
+                    <h5 class="mt-4">Bu Soru Bankasında Yer Alan Konular:</h5>
+                    <ul class="list-inline mt-2">
+                        @foreach (var topic in Model.Topics)
+                        {
+                            <li class="list-inline-item mb-2">
+                                <span class="badge bg-light text-dark border">
+                                    @topic
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                }
+
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        &larr; Soru Bankalarına Dön
+                    </a>
+
+                    @if (Model.TotalPages > 0)
+                    {
+                        <a asp-action="Details"
+                           asp-route-examTypeId="@Model.ExamTypeId"
+                           asp-route-lessonId="@Model.LessonId"
+                           asp-route-page="1"
+                           class="btn btn-primary btn-lg">
+                            Başla &rarr; 1. Sayfaya Git
+                        </a>
+                    }
+                </div>
             </div>
-        }
-        else
-        {
-            int sayac = 1;
-            @foreach (var soru in Model)
+        </div>
+    }
+    else
+    {
+        <!-- 📄 SORU SAYFALARI -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 style="color: #2c3e50;">@Model.BankName</h1>
+                <p class="text-muted mb-0">
+                    @Model.ExamName - @Model.LessonName &middot;
+                    Toplam @Model.TotalQuestions soru ·
+                    Sayfa @Model.CurrentPage / @Model.TotalPages
+                </p>
+            </div>
+            <a asp-action="Index" class="btn btn-secondary">
+                &larr; Soru Bankalarına Dön
+            </a>
+        </div>
+
+        <div class="questions-list">
+            @if (Model.Questions == null || !Model.Questions.Any())
             {
-                <div class="card mb-4 shadow-sm" style="border-radius: 10px; border: none;">
-                    <div class="card-header bg-white">
-                        <span class="badge bg-primary">Soru @sayac</span>
-                        <span class="badge bg-light text-dark">Zorluk: @soru.DifficultyLevel</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title p-2">@soru.QuestionText</h5>
+                <div class="alert alert-warning">
+                    Bu sayfada görüntülenecek soru bulunamadı.
+                </div>
+            }
+            else
+            {
+                int sayac = (Model.CurrentPage - 1) * 6 + 1;
 
-                        <div class="list-group list-group-flush mt-3" id="options-@soru.QuestionId">
-                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'A', '@soru.CorrectAnswer')">
-                                <b>A)</b> @soru.OptionA
-                            </button>
-                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'B', '@soru.CorrectAnswer')">
-                                <b>B)</b> @soru.OptionB
-                            </button>
-                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'C', '@soru.CorrectAnswer')">
-                                <b>C)</b> @soru.OptionC
-                            </button>
-                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'D', '@soru.CorrectAnswer')">
-                                <b>D)</b> @soru.OptionD
-                            </button>
-                            <button type="button" class="list-group-item list-group-item-action option-btn" onclick="checkAnswer(this, '@soru.QuestionId', 'E', '@soru.CorrectAnswer')">
-                                <b>E)</b> @soru.OptionE
-                            </button>
+                @foreach (var soru in Model.Questions)
+                {
+                    <div class="card mb-4 shadow-sm" style="border-radius: 10px; border: none;">
+                        <div class="card-header bg-white">
+                            <span class="badge bg-primary">Soru @sayac</span>
+                            <span class="badge bg-light text-dark">Zorluk: @soru.DifficultyLevel</span>
                         </div>
+                        <div class="card-body">
+                            <h5 class="card-title p-2">@soru.QuestionText</h5>
 
-                        <div class="mt-3 text-end">
-                            <button class="btn btn-sm btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#answer-@soru.QuestionId">
-                                Cevabı Göster
-                            </button>
-                        </div>
+                            <div class="list-group list-group-flush mt-3" id="options-@soru.QuestionId">
+                                <button type="button" class="list-group-item list-group-item-action option-btn"
+                                        onclick="checkAnswer(this, '@soru.QuestionId', 'A', '@soru.CorrectAnswer')">
+                                    <b>A)</b> @soru.OptionA
+                                </button>
+                                <button type="button" class="list-group-item list-group-item-action option-btn"
+                                        onclick="checkAnswer(this, '@soru.QuestionId', 'B', '@soru.CorrectAnswer')">
+                                    <b>B)</b> @soru.OptionB
+                                </button>
+                                <button type="button" class="list-group-item list-group-item-action option-btn"
+                                        onclick="checkAnswer(this, '@soru.QuestionId', 'C', '@soru.CorrectAnswer')">
+                                    <b>C)</b> @soru.OptionC
+                                </button>
+                                <button type="button" class="list-group-item list-group-item-action option-btn"
+                                        onclick="checkAnswer(this, '@soru.QuestionId', 'D', '@soru.CorrectAnswer')">
+                                    <b>D)</b> @soru.OptionD
+                                </button>
+                                <button type="button" class="list-group-item list-group-item-action option-btn"
+                                        onclick="checkAnswer(this, '@soru.QuestionId', 'E', '@soru.CorrectAnswer')">
+                                    <b>E)</b> @soru.OptionE
+                                </button>
+                            </div>
 
-                        <div class="collapse mt-2" id="answer-@soru.QuestionId">
-                            <div class="card card-body bg-light text-success fw-bold">
-                                Doğru Cevap: @soru.CorrectAnswer
+                            <!-- ✅ Cevap her zaman altta görünsün -->
+                            <div class="mt-3">
+                                <span class="badge bg-success">
+                                    Doğru Cevap: @soru.CorrectAnswer
+                                </span>
                             </div>
                         </div>
                     </div>
-                </div>
-                sayac++;
+                    sayac++;
+                }
             }
-        }
-    </div>
+        </div>
+
+        <!-- 🔁 SAYFALAMA BUTONLARI -->
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <div>
+                <a asp-action="Details"
+                   asp-route-examTypeId="@Model.ExamTypeId"
+                   asp-route-lessonId="@Model.LessonId"
+                   asp-route-page="0"
+                   class="btn btn-outline-secondary">
+                    ⬅ Kapak
+                </a>
+            </div>
+
+            <div>
+                @if (Model.CurrentPage > 1)
+                {
+                    <a asp-action="Details"
+                       asp-route-examTypeId="@Model.ExamTypeId"
+                       asp-route-lessonId="@Model.LessonId"
+                       asp-route-page="@(Model.CurrentPage - 1)"
+                       class="btn btn-outline-primary me-2">
+                        ◀ Önceki Sayfa
+                    </a>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <a asp-action="Details"
+                       asp-route-examTypeId="@Model.ExamTypeId"
+                       asp-route-lessonId="@Model.LessonId"
+                       asp-route-page="@(Model.CurrentPage + 1)"
+                       class="btn btn-outline-primary">
+                        Sonraki Sayfa ▶
+                    </a>
+                }
+            </div>
+        </div>
+    }
 </div>
 
 <script>
+    // İstersen tıklanınca doğru/yanlış renklerini koruyalım
     function checkAnswer(btn, questionId, selectedOption, correctOption) {
-        // O sorudaki tüm butonların rengini sıfırla
         var parentDiv = document.getElementById('options-' + questionId);
         var buttons = parentDiv.getElementsByClassName('option-btn');
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove('bg-success', 'bg-danger', 'text-white');
         }
 
-        // Doğru mu Yanlış mı kontrol et
         if (selectedOption === correctOption) {
-            btn.classList.add('bg-success', 'text-white'); // Doğruysa Yeşil
+            btn.classList.add('bg-success', 'text-white');
         } else {
-            btn.classList.add('bg-danger', 'text-white'); // Yanlışsa Kırmızı
+            btn.classList.add('bg-danger', 'text-white');
         }
     }
 </script>

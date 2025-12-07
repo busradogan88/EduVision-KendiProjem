@@ -36,37 +36,42 @@
         {
             @foreach (var item in Model)
             {
-                // Kartın içine data-category özelliği ekledik. Filtreleme buna göre çalışacak.
-                <div class="card qb-card filter-item" data-category="@item.ExamName">
+                <div class="card qb-card filter-item" data-category="@item.ExamName" style="overflow: hidden;">
 
-                    <h3 style="display:flex; justify-content:space-between;">
-                        <span>@item.LessonName</span>
-                        <span class="badge bg-secondary" style="font-size: 0.6em;">@item.ExamName</span>
-                    </h3>
-
-                    <p class="qb-sub">
-                        @item.ExamName müfredatına uygun @item.LessonName konuları.
-                    </p>
-
-                    <div class="qb-meta-row">
-                        <span>Tür: <b>@item.ExamName</b></span>
-                        <span>~ @item.QuestionCount Soru</span>
-                    </div>
-
-                    <div class="qb-tags">
-                        <span class="qb-tag @(item.ExamName == "TYT" ? "qb-tag-blue" : "qb-tag-orange")">
+                    <div class="qb-img-container" style="height: 180px; overflow: hidden; position: relative; background-color: #f0f0f0;">
+                        <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/img/default.jpg")"
+                             alt="@item.BankName"
+                             style="width: 100%; height: 100%; object-fit: cover;"
+                             onerror="this.src='/img/default.jpg'"> <span class="badge @(item.ExamName == "TYT" ? "bg-primary" : "bg-danger")"
+                                                                          style="position: absolute; top: 10px; right: 10px; opacity: 0.9;">
                             @item.ExamName
                         </span>
-                        <span class="qb-tag">Güncel</span>
                     </div>
 
-                    <a asp-controller="QuestionBank"
-                       asp-action="Details"
-                       asp-route-examTypeId="@item.ExamTypeId"
-                       asp-route-lessonId="@item.LessonId"
-                       class="btn-primary qb-btn">
-                        Soru Bankasını Aç
-                    </a>
+                    <div class="card-body" style="padding: 15px;">
+                        <h5 class="card-title" style="font-weight: bold; margin-bottom: 5px;">@item.BankName</h5>
+
+                        <p class="text-muted" style="font-size: 0.85em; margin-bottom: 10px;">
+                            <i class="bi bi-book"></i> @item.Publisher
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-light text-dark border">
+                                @item.LessonName
+                            </span>
+                            <span style="font-size: 0.9em; color: #666;">
+                                @item.QuestionCount Soru
+                            </span>
+                        </div>
+
+                        <a asp-controller="QuestionBank"
+                           asp-action="Details"
+                           asp-route-examTypeId="@item.ExamTypeId"
+                           asp-route-lessonId="@item.LessonId"
+                           class="btn btn-outline-primary w-100">
+                            Soruları Çöz
+                        </a>
+                    </div>
                 </div>
             }
         }
@@ -82,11 +87,11 @@
 <script>
     function filterSelection(category, btn) {
         var items = document.getElementsByClassName("filter-item");
-
+        
         // 1. Kartları Gizle/Göster
         for (var i = 0; i < items.length; i++) {
             var itemCategory = items[i].getAttribute("data-category");
-
+            
             if (category === "all") {
                 items[i].style.display = "block"; // Hepsini göster
             } else {
@@ -104,7 +109,7 @@
             buttons[i].classList.remove("active", "btn-primary"); // Eskisinden rengi al
             buttons[i].classList.add("btn-outline-primary");     // Çizgili hale getir
         }
-
+        
         // Tıklanan butonu boya
         btn.classList.remove("btn-outline-primary");
         btn.classList.add("btn-primary", "active");
@@ -112,9 +117,9 @@
 
     // Sayfa ilk açıldığında 'Tümü' butonu aktif gibi görünsün diye manuel stil eklemesi
     // (CSS classları ile daha temiz yapılabilir ama hızlı çözüm için script içinde hallettik)
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         var allBtn = document.querySelector("button[onclick=\"filterSelection('all', this)\"]");
-        if (allBtn) {
+        if(allBtn) {
             allBtn.classList.remove("btn-outline-primary");
             allBtn.classList.add("btn-primary");
         }
@@ -129,7 +134,7 @@
         font-weight: 500;
         transition: all 0.3s ease;
     }
-
+    
     /* Grid yapısı elemanlar gizlenince bozulmasın diye */
     .qb-grid {
         display: grid;

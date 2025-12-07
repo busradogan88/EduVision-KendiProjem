@@ -1,0 +1,165 @@
+﻿@model EduVision.Models.ViewModels.ExamSummaryViewModel
+@{
+    ViewData["Title"] = "Sınav Yönetimi";
+}
+
+<div class="container mt-4">
+    <h2>Sınav Yönetimi</h2>
+    <p>Sınavlarını yönet, kaldığın yerden devam et veya yeni deneme başlat.</p>
+
+    <div class="row mt-3">
+        <!-- SOL KISIM -->
+        <div class="col-md-8">
+            <!-- Sınav Bilgi Kartı -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4>@Model.ExamTitle</h4>
+
+                    <dl class="row mt-3">
+                        <dt class="col-sm-3">Sınav Adı:</dt>
+                        <dd class="col-sm-9">@Model.ExamTitle</dd>
+
+                        <dt class="col-sm-3">Sınav Türü:</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge bg-warning text-dark">
+                                @Model.CategoryName
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-3">Soru Sayısı:</dt>
+                        <dd class="col-sm-9">@Model.QuestionCount Soru</dd>
+
+                        <dt class="col-sm-3">Zorluk:</dt>
+                        <dd class="col-sm-9">@Model.DifficultyText</dd>
+
+                        <dt class="col-sm-3">Sınav Süresi:</dt>
+                        <dd class="col-sm-9">
+                            <span class="text-danger fw-bold">
+                                @Model.DurationMinutes:00 (Dakika)
+                            </span>
+                        </dd>
+                    </dl>
+
+                    <!-- Bu sınavda yer alan konular -->
+                    @if (Model.Topics != null && Model.Topics.Any())
+                    {
+                        <h5 class="mt-4">Bu Sınavda Yer Alan Konular:</h5>
+                        <ul class="list-inline mt-2">
+                            @foreach (var topic in Model.Topics)
+                            {
+                                <li class="list-inline-item mb-2">
+                                    <span class="badge bg-light text-dark border">
+                                        @topic
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    <!-- ✅ BUTONLAR ARTIK ÇALIŞIYOR -->
+                    <div class="mt-3 d-flex gap-2">
+                        <!-- Başla -->
+                        <a class="btn btn-primary flex-grow-1"
+                           asp-controller="Exam"
+                           asp-action="Start"
+                           asp-route-examId="@Model.ExamId">
+                            Başla
+                        </a>
+
+                        <!-- Devam Et -->
+                        <a class="btn btn-outline-secondary flex-grow-1"
+                           asp-controller="Exam"
+                           asp-action="Continue"
+                           asp-route-examId="@Model.ExamId">
+                            Devam Et
+                        </a>
+
+                        <!-- Tekrar Çöz -->
+                        <a class="btn btn-outline-primary flex-grow-1"
+                           asp-controller="Exam"
+                           asp-action="Start"
+                           asp-route-examId="@Model.ExamId">
+                            Tekrar Çöz
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sınav Sonuç Geçmişi -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4>Sınav Sonuç Geçmişi</h4>
+
+                    @if (Model.History != null && Model.History.Any())
+                    {
+                        <table class="table table-sm mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Sınav Adı</th>
+                                    <th>Tarih</th>
+                                    <th>Tür</th>
+                                    <th>Net</th>
+                                    <th>Süre</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.History)
+                                {
+                                    <tr>
+                                        <td>@item.ExamName</td>
+                                        <td>@item.ExamDate.ToString("dd.MM.yyyy")</td>
+                                        <td>@item.CategoryName</td>
+                                        <td>@item.Net</td>
+                                        <td>@item.DurationMinutes.ToString("0") dk</td>
+                                        <td>
+                                            <span class="badge bg-success">@item.Status</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="mt-3 text-muted">
+                            Bu sınav tipi için henüz sonuç bulunmamaktadır.
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- SAĞ KISIM -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4>Sınav Özeti</h4>
+
+                    <p class="mt-3">
+                        @Model.Description
+                    </p>
+
+                    <ul class="list-unstyled mt-3">
+                        <li>📌 Önerilen süre: @Model.DurationMinutes dakika</li>
+                        <li>🎯 Hedeflenen doğru sayısı: @Model.TargetCorrect@("+")</li>
+                        <li>📊 Çözüldüğünde: ayrıntılı analiz ekranı</li>
+                    </ul>
+
+                    <div class="mt-3">
+                        <span class="badge bg-primary">
+                            Seviye: @Model.LevelCode
+                        </span>
+                    </div>
+
+                    <hr />
+
+                    <p class="text-muted mb-0">
+                        Sınavı başlattığında sorular karışık sırada ve
+                        seçilen konulara göre gelecektir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
