@@ -1,13 +1,42 @@
-﻿<div class="form-container">
-    <h2>Kayıt Ol</h2>
+﻿@model EduVision.Models.ViewModels.RegisterViewModel
 
-    <input type="text" class="form-control" placeholder="Ad Soyad" />
-    <input type="email" class="form-control" placeholder="Email" />
-    <input type="password" class="form-control" placeholder="Şifre" />
+<div class="container">
+    <div class="form-container">
 
-    <button class="btn-primary">Kayıt Ol</button>
+        <h2 class="text-center mb-3">Kayıt Ol</h2>
 
-    <p style="text-align:center; margin-top:10px;">
-        Zaten hesabın var mı? <a href="/Account/Login">Giriş Yap</a>
-    </p>
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+            <input asp-for="FullName"
+                   class="form-control mb-2"
+                   placeholder="Ad Soyad" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+
+            <input asp-for="Email"
+                   class="form-control mb-2"
+                   placeholder="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <input asp-for="Password"
+                   type="password"
+                   class="form-control mb-2"
+                   placeholder="Şifre" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+            <input asp-for="ConfirmPassword"
+                   type="password"
+                   class="form-control mb-3"
+                   placeholder="Şifre (Tekrar)" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+
+            <p class="mt-3 text-center">
+                Zaten hesabın var mı?
+                <a asp-action="Login">Giriş Yap</a>
+            </p>
+        </form>
+
+    </div>
 </div>
