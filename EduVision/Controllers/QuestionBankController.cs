@@ -41,7 +41,7 @@ namespace EduVision.Controllers
         // 🔹 examTypeId + lessonId ile gelen bankanın kapak + sayfalı soruları
         public async Task<IActionResult> Details(int examTypeId, int lessonId, int page = 0)
         {
-            const int pageSize = 6;
+            const int pageSize = 10;
 
             // Bu bankaya ait aktif sorular
             var baseQuery = _context.Questions

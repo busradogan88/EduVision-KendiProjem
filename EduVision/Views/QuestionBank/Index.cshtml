@@ -23,12 +23,22 @@
             <h1>Soru Bankaları</h1>
             <p>Çalışmak istediğin alanı seç ve hemen çözmeye başla.</p>
         </div>
-    </div>
 
-    <div class="filter-container mb-4" style="text-align: center; margin-bottom: 30px;">
-        <button class="btn btn-outline-primary active-filter" onclick="filterSelection('all', this)">Tümü</button>
-        <button class="btn btn-outline-primary" onclick="filterSelection('TYT', this)">TYT</button>
-        <button class="btn btn-outline-primary" onclick="filterSelection('AYT', this)">AYT</button>
+        <!-- 🔹 SAĞ ÜSTTE 3 BUTON -->
+        <div class="qb-filter-buttons">
+            <button class="btn btn-primary active"
+                    onclick="filterSelection('all', this)">
+                Tümü
+            </button>
+            <button class="btn btn-outline-primary"
+                    onclick="filterSelection('TYT', this)">
+                TYT
+            </button>
+            <button class="btn btn-outline-primary"
+                    onclick="filterSelection('AYT', this)">
+                AYT
+            </button>
+        </div>
     </div>
 
     <div class="qb-grid">
@@ -36,20 +46,27 @@
         {
             @foreach (var item in Model)
             {
-                <div class="card qb-card filter-item" data-category="@item.ExamName" style="overflow: hidden;">
+                <div class="card qb-card filter-item"
+                     data-category="@item.ExamName"
+                     style="overflow: hidden;">
 
-                    <div class="qb-img-container" style="height: 180px; overflow: hidden; position: relative; background-color: #f0f0f0;">
+                    <div class="qb-img-container"
+                         style="height: 180px; overflow: hidden; position: relative; background-color: #f0f0f0;">
                         <img src="@(!string.IsNullOrEmpty(item.ImageUrl) ? item.ImageUrl : "/img/default.jpg")"
                              alt="@item.BankName"
                              style="width: 100%; height: 100%; object-fit: cover;"
-                             onerror="this.src='/img/default.jpg'"> <span class="badge @(item.ExamName == "TYT" ? "bg-primary" : "bg-danger")"
-                                                                          style="position: absolute; top: 10px; right: 10px; opacity: 0.9;">
+                             onerror="this.src='/img/default.jpg'">
+
+                        <span class="badge @(item.ExamName == "TYT" ? "bg-primary" : "bg-danger")"
+                              style="position: absolute; top: 10px; right: 10px; opacity: 0.9;">
                             @item.ExamName
                         </span>
                     </div>
 
                     <div class="card-body" style="padding: 15px;">
-                        <h5 class="card-title" style="font-weight: bold; margin-bottom: 5px;">@item.BankName</h5>
+                        <h5 class="card-title" style="font-weight: bold; margin-bottom: 5px;">
+                            @item.BankName
+                        </h5>
 
                         <p class="text-muted" style="font-size: 0.85em; margin-bottom: 10px;">
                             <i class="bi bi-book"></i> @item.Publisher
@@ -87,58 +104,24 @@
 <script>
     function filterSelection(category, btn) {
         var items = document.getElementsByClassName("filter-item");
-        
-        // 1. Kartları Gizle/Göster
+
         for (var i = 0; i < items.length; i++) {
             var itemCategory = items[i].getAttribute("data-category");
-            
+
             if (category === "all") {
-                items[i].style.display = "block"; // Hepsini göster
+                items[i].style.display = "block";
             } else {
-                if (itemCategory === category) {
-                    items[i].style.display = "block"; // Eşleşeni göster
-                } else {
-                    items[i].style.display = "none";  // Eşleşmeyeni gizle
-                }
+                items[i].style.display = (itemCategory === category) ? "block" : "none";
             }
         }
 
-        // 2. Butonların Aktiflik Rengini Ayarla
-        var buttons = document.getElementsByClassName("btn-outline-primary");
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].classList.remove("active", "btn-primary"); // Eskisinden rengi al
-            buttons[i].classList.add("btn-outline-primary");     // Çizgili hale getir
-        }
-        
-        // Tıklanan butonu boya
+        var buttons = document.querySelectorAll(".qb-filter-buttons .btn");
+        buttons.forEach(function (b) {
+            b.classList.remove("active", "btn-primary");
+            b.classList.add("btn-outline-primary");
+        });
+
         btn.classList.remove("btn-outline-primary");
         btn.classList.add("btn-primary", "active");
     }
-
-    // Sayfa ilk açıldığında 'Tümü' butonu aktif gibi görünsün diye manuel stil eklemesi
-    // (CSS classları ile daha temiz yapılabilir ama hızlı çözüm için script içinde hallettik)
-    document.addEventListener("DOMContentLoaded", function() {
-        var allBtn = document.querySelector("button[onclick=\"filterSelection('all', this)\"]");
-        if(allBtn) {
-            allBtn.classList.remove("btn-outline-primary");
-            allBtn.classList.add("btn-primary");
-        }
-    });
 </script>
-
-<style>
-    .filter-container button {
-        margin: 0 5px;
-        padding: 8px 20px;
-        border-radius: 20px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    /* Grid yapısı elemanlar gizlenince bozulmasın diye */
-    .qb-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-    }
-</style>

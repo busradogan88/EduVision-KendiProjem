@@ -38,3 +38,19 @@
     .btn-primary:hover {
         background-color: #084298;
     }
+
+
+/* Soru Bankası filtre butonları – sağ üst */
+.qb-filter-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .qb-filter-buttons .btn {
+        margin: 0;
+        padding: 6px 18px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 500;
+    }

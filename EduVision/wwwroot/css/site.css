@@ -774,3 +774,12 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+footer {
+    pointer-events: none; /* Týklamayý engeller */
+}
+
+    footer a {
+        pointer-events: auto; /* Linkler yine týklanabilir */
+    }
+
